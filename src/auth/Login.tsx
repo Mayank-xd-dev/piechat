@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
+import { AUTH_KEY } from "../config/cometChat";
 
 // Add JSX namespace declaration
 declare global {
@@ -33,8 +34,8 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         // Validate inputs
-        if (!username.trim() || !password.trim()) {
-            setError("Please fill in all fields");
+        if (!username.trim()) {
+            setError("Please enter your username");
             return;
         }
 
@@ -42,15 +43,42 @@ const Login: React.FC = () => {
         setLoading(true);
 
         try {
-            const user = await CometChat.login(username.trim(), password);
+            console.log("Attempting to login with username:", username.trim());
+
+            // Try to login directly with AUTH_KEY
+            const user = await CometChat.login(username.trim(), AUTH_KEY);
             console.log("Login successful:", user);
-            navigate("/chat");
+
+            // Force a page reload to update authentication state
+            window.location.href = "/";
         } catch (error: any) {
-            console.error("Login error:", error);
-            if (error?.code === "ERR_INVALID_CREDENTIALS") {
-                setError("Invalid username or password");
-            } else if (error?.code === "ERR_NETWORK") {
+            console.error("Login error details:", {
+                code: error?.code,
+                message: error?.message,
+                details: error
+            });
+
+            if (error?.code === "ERR_NETWORK") {
                 setError("Network error. Please check your connection");
+            } else if (error?.code === "ERR_USER_NOT_FOUND" || error?.code === "ERR_INVALID_CREDENTIALS") {
+                // If login fails, try to create the user first
+                try {
+                    console.log("User not found, attempting to create user");
+                    const newUser = new CometChat.User(username.trim());
+                    newUser.setName(username.trim());
+                    await CometChat.createUser(newUser, AUTH_KEY);
+
+                    // Now try to login again
+                    const loggedInUser = await CometChat.login(username.trim(), AUTH_KEY);
+                    console.log("User created and logged in successfully:", loggedInUser);
+
+                    // Force a page reload to update authentication state
+                    window.location.href = "/";
+                    return;
+                } catch (createError: any) {
+                    console.error("User creation error:", createError);
+                    setError("Failed to create user. Please try again.");
+                }
             } else {
                 setError("An error occurred. Please try again");
             }
