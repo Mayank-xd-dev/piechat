@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CometChatApp from "./CometChat/CometChatApp.tsx";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
+import ResetPassword from "./auth/ResetPassword";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 import { initCometChat } from "./config/cometChat";
 
@@ -47,6 +48,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
         <Route
           path="/login"
           element={isAuthenticated ? <Navigate to="/" /> : <Login />}
@@ -55,6 +57,12 @@ const App = () => {
           path="/signup"
           element={isAuthenticated ? <Navigate to="/" /> : <Signup />}
         />
+        <Route
+          path="/reset-password"
+          element={isAuthenticated ? <Navigate to="/" /> : <ResetPassword />}
+        />
+
+        {/* Protected Routes */}
         <Route
           path="/"
           element={
@@ -67,7 +75,14 @@ const App = () => {
             )
           }
         />
-        <Route path="*" element={<Navigate to="/" />} />
+
+        {/* Catch all route - redirect to login if not authenticated, home if authenticated */}
+        <Route
+          path="*"
+          element={
+            isAuthenticated ? <Navigate to="/" /> : <Navigate to="/login" />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
