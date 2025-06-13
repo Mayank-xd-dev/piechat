@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Auth.css";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
-import { AUTH_KEY } from "../config/cometChat";
+import { AUTH_KEY } from "./config";
 
 // Add JSX namespace declaration
 declare global {
@@ -23,12 +23,11 @@ declare global {
     }
 }
 
-const Login: React.FC = () => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
