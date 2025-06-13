@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Auth.css";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
-import { AUTH_KEY } from "./config";
+import { AUTH_KEY } from "../config/cometChat";
 
 // Add JSX namespace declaration
 declare global {
