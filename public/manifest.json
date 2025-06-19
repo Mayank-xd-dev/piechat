@@ -2,12 +2,37 @@
   "name": "PieChat - Real-Time Group & Private Chat",
   "short_name": "PieChat",
   "description": "Secure real-time chat app with group chat, private messages, voice/video calls, emoji reactions, and file sharing.",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#2d89ef",
+  "id": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["communication", "chat", "social", "messaging"],
+  "screenshots": [
+    {
+      "src": "/screenshots/chat-group.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Group Chat"
+    },
+    {
+      "src": "/screenshots/chat-private.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Private Messaging"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://piechat.vercel.app"
+    }
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
@@ -34,6 +59,12 @@
       "src": "/icons/favicon-16x16.png",
       "sizes": "16x16",
       "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
