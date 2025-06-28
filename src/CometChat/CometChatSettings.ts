@@ -27,9 +27,9 @@
       "groupInfo": true
     },
     "aiUserCopilot": {
-      "conversationStarter": false,
-      "conversationSummary": false,
-      "smartReply": false
+      "conversationStarter": true,
+      "conversationSummary": true,
+      "smartReply": true
     },
     "groupManagement": {
       "createGroup": true,
@@ -66,7 +66,7 @@
     "chatType": "user"
   },
   "style": {
-    "theme": "system",
+    "theme": "light",
     "color": {
       "brandColor": "#6852D6",
       "primaryTextLight": "#141414",
