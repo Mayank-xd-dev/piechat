@@ -66,7 +66,7 @@
     "chatType": "user"
   },
   "style": {
-    "theme": "light",
+    "theme": "dark",
     "color": {
       "brandColor": "#6852D6",
       "primaryTextLight": "#141414",
